@@ -31,11 +31,17 @@ li{
     list-style: none;
 }
 
+.u-mb-1{margin-bottom: 1rem;}
+.u-mb-2{margin-bottom: 2rem;}
+.u-mb-3{margin-bottom: 3rem;}
+.u-mb-4{margin-bottom: 6rem;}
+$animate:grow 500ms infinite alternate ease;
+
 // 
 
 .main{
     overflow: hidden;
-    height: 100vh;
+    min-height: 100vh;
     background: #00d2ff;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #928DAB, #00d2ff);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #928DAB, #00d2ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
@@ -52,7 +58,6 @@ li{
     box-shadow: 0.5rem 0 1rem rgba(black,0.5);
     transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
     cursor: pointer;
-    padding: 2rem;
 
     &__title{
         position: absolute;
@@ -111,25 +116,243 @@ li{
     &__title{
         text-align: center;
         font-size: 2.5rem;
-        border: 10px solid transparent;
+        border: 10px double white;
         padding: 1rem;
         position: relative;
         border-radius: 1rem;
         overflow: hidden;
-    }
+        color: white;
+        box-shadow: 0 0 1rem rgba(white,0.6);
+        z-index: 2;
+        margin-bottom: 2rem;
 
-    .rotating{
-        
         &::before{
             content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:linear-gradient(to right,yellow 20%,orange 40%,skyblue 60%,lime);
+            z-index: -1;
+            transform: skewX(40deg) translateX(-130%) scale(1);
+            transition: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+        }
+
+        &:hover::before{
+                transform: skewX(40deg) translateX(0%) scale(1.2);
             
         }
+        
+    }
+
+    &__slider{
+        width: 80%;
+        margin: 0 auto;
+        position: relative;
+        overflow: hidden;
+        border:1rem double white;
+        border-radius: 1rem;
+        height: 25rem;
+    }
+
+    .slide{
+        width: 100%;
+        position: absolute;
+        transition: 500ms;
+    }
+
+    img{
+        width: 100%;
+        display: block;
+        object-fit: cover;
+    }
+
+    .button{
+        font-size: 1.5rem;
+        position: absolute;
+        border: none;
+        display: block;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 50%;
+        line-height: 1.5rem;
+        color: white;
+        background-color: black;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        transition: 300ms;
+        &:hover{
+            color: black;
+            background-color: white;
+        }
+    }
+
+    .prev{
+        left: 1rem;
+    }
+    .next{
+        right: 1rem;
+    }
+
+  
+}
+// season
+
+.content{
+    font-size: 1rem;
+    padding: 2rem 5rem 2rem 0;
+
+    &__title{
+        font-size: 2rem;
+        text-align: center;
+        font-family: inherit;
+        text-transform: capitalize;
+    }
+
+    &__main{
+        &::after{
+            display: block;
+            content: '';
+            width: 100px;
+            height: 3px;
+            background-color: black;
+            margin: 1rem auto;
+        }
+    }
+
+    &__sub{
+        display: block;
+        font-size: 1.2rem;
+    }
+
+    &__images{
+        width: 20rem;
+        height: 20rem;
+        position: relative;
+    }
+
+    &__img{
+        width: 20rem;
+        display: block;
+        height: 20rem;
+        object-fit: cover;
+        border-radius: 50%;
+        position: absolute;
+        transition: 1s ease-in;
+        opacity: 0;
+    }
+
+    .buttons{
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: -3rem;
+    }
+
+    .btn{
+        width: 15px;
+        height: 15px;
+        display:inline-block;
+        border: none;
+        background-color: white;
+        border-radius: 50%;
+        margin-right: 1rem;
+        cursor: pointer;
+        transition: 300ms;
+
+        &:hover{
+            background-color: red;
+        }
+    }
+
+    &__hero{
+        display: grid;
+        grid-template-columns: max-content 1fr;
+        grid-gap: 1rem;
+    }
+
+    &__text{
+        padding: 0.5rem;
+    }
+
+  
+}
+
+.autumn,
+.winter,
+.spring,
+.more
+{
+    padding-left: 25%;
+}
+
+// SUMMER
+.summer{
+    padding-left: 13rem;
+
+    .sun,
+    .palmTree
+    {
+        position: absolute;
+        font-size: 4rem;
+        animation:$animate;
+    }
+
+    .palmTree{
+        bottom: 2rem;
+        left: 50%;
+    }
+
+    .wave{
+        margin-bottom: 2rem;
     }
 }
 
+.autumn{
+    .leaf{
+        position: absolute;
+        font-size: 4rem;
+        animation:$animate;
+
+
+        &:nth-of-type(1){
+            bottom: 3rem;
+            left: 40%;
+        }
+        &:nth-of-type(3){
+            bottom: 2rem;
+            left: 80%;
+        }
+        &:nth-of-type(2){
+            top: 2rem;
+            left: 80%;
+        }
+    }
+}
 
 // STATE CLASSES
 
 .openPage{
     transform: translateX(-15%);
+}
+
+.picked{
+    background-color: red !important;
+}
+
+.showImg{
+    transform: rotate(360deg);
+    opacity: 1;
+}
+
+
+
+
+
+@keyframes grow{
+    from{transform: scale(1);}
+    from{transform: scale(1.2);}
 }
