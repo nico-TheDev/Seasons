@@ -49,6 +49,7 @@ const summerImg = document.querySelectorAll('.summer-photo');
 const autumnImg = document.querySelectorAll('.autumn-photo');
 const winterImg = document.querySelectorAll('.winter-photo');
 const springImg = document.querySelectorAll('.spring-photo');
+const moreImg = document.querySelectorAll('.more-photo');
 
 
 let count = 0;
@@ -81,3 +82,21 @@ function changeImg(imgArray){
 
 setInterval(function(){changeImg(summerImg)},time);
 setInterval(function(){changeImg(autumnImg)},time);
+setInterval(function(){changeImg(winterImg)},time);
+setInterval(function(){changeImg(springImg)},time);
+setInterval(function(){changeImg(moreImg)},time);
+
+
+
+const mq = window.matchMedia('(max-width:900px)');
+
+if(mq){
+
+    const navBtn = document.querySelectorAll(".nav__btn");
+
+    navBtn.forEach((btn,index)=>{
+        btn.addEventListener('click',()=>{
+            pages[index].classList.toggle('openPage');
+        });
+    });
+}

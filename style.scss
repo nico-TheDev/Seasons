@@ -1,6 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather&family=Merriweather+Sans:wght@400;700&display=swap');
 
+@mixin query($bp){
+    @if ($bp == tabp){
+        @media only screen and (max-width:900px){@content};
+    }
+    @if ($bp == cp){
+        @media only screen and (max-width:700px){@content};
+    }
+    @if ($bp == scp){
+        @media only screen and (max-width:500px){@content};
+    }
+}
 
+
+// 
 *,
 *::before,
 *::after{
@@ -11,6 +24,10 @@
 
 html{
     box-sizing: border-box;
+
+    @include query(tabp){
+        font-size: 90%;
+    }
 }
 
 body{
@@ -37,15 +54,30 @@ li{
 .u-mb-4{margin-bottom: 6rem;}
 $animate:grow 500ms infinite alternate ease;
 
+@mixin design{
+    
+    position: absolute;
+    left: 30%;
+    font-size: 3rem;
+    animation: $animate;
+
+    @include query(tabp){
+        display: none;
+    }
+
+}
+
 // 
 
 .main{
-    overflow: hidden;
     min-height: 100vh;
     background: #00d2ff;  /* fallback for old browsers */
     background: -webkit-linear-gradient(to left, #928DAB, #00d2ff);  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to left, #928DAB, #00d2ff); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     position: relative;
+    overflow-x: hidden;
+    display: grid;
+    place-items: center;
     }
 
 .page{
@@ -59,12 +91,22 @@ $animate:grow 500ms infinite alternate ease;
     transition: all 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
     cursor: pointer;
 
+    @include query(tabp){
+        transform: translateX(-200%);
+        width: 100%;
+        border-radius: 0;
+    }
+
     &__title{
         position: absolute;
         top: 50%;
         right: 1rem;
         writing-mode: vertical-lr;
         transform: translateY(-50%);
+
+        @include query(tabp){
+            display:none;
+        }
     }
 }
 
@@ -79,6 +121,9 @@ $animate:grow 500ms infinite alternate ease;
     background-image: linear-gradient(#d35400,#c0392b);
     z-index: 5;
     color: white;
+    @include query(tabp){
+        left:0;
+    }
 
 }
 
@@ -87,6 +132,9 @@ $animate:grow 500ms infinite alternate ease;
     background-image: linear-gradient(#2980b9,#3498db);
     z-index: 4;
     color: white;
+    @include query(tabp){
+        left:0;
+    }
 
 }
 .page4{
@@ -94,6 +142,9 @@ $animate:grow 500ms infinite alternate ease;
     background-image: linear-gradient(#4cd137,#2ecc71);
     z-index: 3;
     color: white;
+    @include query(tabp){
+        left:0;
+    }
 
 }
 .page5{
@@ -101,18 +152,78 @@ $animate:grow 500ms infinite alternate ease;
     background-image: linear-gradient(#192a56,#40739e);
     z-index: 2;
     color: white;
+    @include query(tabp){
+        left:0;
+    }
 
 }
 
 
+// MOBILEN NAV
+
+.nav{
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    @include query(tabp){
+        display: flex;
+    }
+
+    @include query(scp){
+        // flex-direction: column;
+    }
+    &__btn{
+        width:max-content;
+        border: none;
+        font-size: 1.2rem;
+        font-family: inherit;
+        padding:0.4em;
+        border-radius: 1rem;
+        margin:1rem;
+        cursor: pointer;
+        color: white;
+        transition: 300ms;
+        box-shadow: 0 0 0.3rem rgba(black,0.5);
+        &:hover{
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 0 1rem rgba(black,0.5);
+
+        }
+    }
+
+    .summerBtn{
+        background-color: #fff200;
+        color: black;
+    }
+    .winterBtn{
+        background-color: #2980b9;
+    }
+    .fallBtn{
+        background-color: #d35400;
+    }
+    .springBtn{
+        background-color: #2ecc71;
+    }
+    .moreBtn{
+        background-color: #192a56;
+    }
+}
+
 .special{
     width: 65%;
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
     z-index: 1;
     padding: 2rem;
+    margin-left: 32%;
+    position: relative;
 
+
+    @include query(tabp){
+        margin: 1rem auto;
+        width: 100%;
+    }
+    
+    
+    
     &__title{
         text-align: center;
         font-size: 2.5rem;
@@ -125,7 +236,12 @@ $animate:grow 500ms infinite alternate ease;
         box-shadow: 0 0 1rem rgba(white,0.6);
         z-index: 2;
         margin-bottom: 2rem;
-
+        
+        @include query(scp){
+            font-size: 1.5rem;
+        }
+        
+        
         &::before{
             content: '';
             position: absolute;
@@ -155,18 +271,24 @@ $animate:grow 500ms infinite alternate ease;
         border:1rem double white;
         border-radius: 1rem;
         height: 25rem;
+
+        @include query(tabp){
+            width: 100%;
+        }
     }
 
     .slide{
         width: 100%;
         position: absolute;
         transition: 500ms;
+        height: 100%;
     }
 
     img{
         width: 100%;
         display: block;
         object-fit: cover;
+        height: 100%;
     }
 
     .button{
@@ -205,6 +327,10 @@ $animate:grow 500ms infinite alternate ease;
     font-size: 1rem;
     padding: 2rem 5rem 2rem 0;
 
+    @include query(tabp){
+        padding: 7rem 3rem 3rem 3rem !important;
+    }
+
     &__title{
         font-size: 2rem;
         text-align: center;
@@ -218,7 +344,7 @@ $animate:grow 500ms infinite alternate ease;
             content: '';
             width: 100px;
             height: 3px;
-            background-color: black;
+            background-color: white;
             margin: 1rem auto;
         }
     }
@@ -243,6 +369,7 @@ $animate:grow 500ms infinite alternate ease;
         position: absolute;
         transition: 1s ease-in;
         opacity: 0;
+        box-shadow: 0 0 1rem rgba(white,0.6);
     }
 
     .buttons{
@@ -272,6 +399,12 @@ $animate:grow 500ms infinite alternate ease;
         display: grid;
         grid-template-columns: max-content 1fr;
         grid-gap: 1rem;
+
+        @include query(tabp){
+            grid-template-columns: 1fr;
+            justify-items: center;
+            text-align: justify;
+        }
     }
 
     &__text{
@@ -287,6 +420,8 @@ $animate:grow 500ms infinite alternate ease;
 .more
 {
     padding-left: 25%;
+
+
 }
 
 // SUMMER
@@ -299,6 +434,10 @@ $animate:grow 500ms infinite alternate ease;
         position: absolute;
         font-size: 4rem;
         animation:$animate;
+
+        @include query(tabp){
+            display:none;
+        }
     }
 
     .palmTree{
@@ -309,27 +448,79 @@ $animate:grow 500ms infinite alternate ease;
     .wave{
         margin-bottom: 2rem;
     }
+
+    .content__main{
+        &::after{
+            background-color: black ;
+        }
+    }
 }
 
 .autumn{
     .leaf{
-        position: absolute;
-        font-size: 4rem;
-        animation:$animate;
+        @include design;
+    }
 
+    .leaf1{
+        left: 41%;
+    }
+    .leaf2{
+        left: 70%;
+    }
+    .leaf3{
+        left: 55%;
+        bottom: 3rem;
+    }
+}
 
-        &:nth-of-type(1){
-            bottom: 3rem;
-            left: 40%;
-        }
-        &:nth-of-type(3){
-            bottom: 2rem;
-            left: 80%;
-        }
-        &:nth-of-type(2){
-            top: 2rem;
-            left: 80%;
-        }
+.winter{
+    .flake{
+        @include design;
+    }
+
+    .flake1{
+        left: 41%;
+    }
+    .flake2{
+        left: 70%;
+    }
+    .flake3{
+        left: 55%;
+        bottom: 3rem;
+    }
+    .flake4{
+        left: 35%;
+        bottom: 3rem;
+    }
+    .flake5{
+        left: 75%;
+        bottom: 3rem;
+    }
+}
+
+.spring{
+    .leaflet{
+        @include design;
+    }
+
+    .leaflet1{
+        left: 41%;
+    }
+    .leaflet2{
+        left: 70%;
+    }
+    .leaflet3{
+        left: 55%;
+        bottom: 3rem;
+    }
+
+    .leaflet4{
+        left: 35%;
+        bottom: 3rem;
+    }
+    .leaflet5{
+        left: 75%;
+        bottom: 3rem;
     }
 }
 
@@ -337,6 +528,10 @@ $animate:grow 500ms infinite alternate ease;
 
 .openPage{
     transform: translateX(-15%);
+
+    @include query(tabp){
+        transform:translateX(0);
+    }
 }
 
 .picked{
